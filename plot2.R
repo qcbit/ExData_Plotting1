@@ -1,0 +1,7 @@
+library(lubridate)
+data<-read.table("household_power_consumption.txt", na.strings = "?", header=TRUE, sep=";")
+data2<-within(data, Datetime<-as.POSIXct(paste(Date, Time), format="%d/%m/%Y %T"))
+data3<-subset(data2, year(Datetime) == 2007 & month(Datetime) == 2 & day(Datetime) >= 1 & day(Datetime) <= 2)
+plot(x=data3$Datetime, y=data3$Global_active_power, type = "l", lab=c(3,5,7), xlab="", ylab="Global Active Power (kilowatts)")
+dev.copy(png, file = "plot2.png")
+dev.off()
